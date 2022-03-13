@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> v(32);
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        int pos = 0;
+        while (x) {
+            if (x & 1) v[pos]++;
+            pos++;
+            x = x >> 1;
+        }
+    }
+    int res = 0;
+    int mult = 1;
+    for (int i = 0; i < 32; i++) {
+        if (v[i] % 3) res += mult;
+        mult *= 2;
+    }
+    cout << res << endl;
+}
