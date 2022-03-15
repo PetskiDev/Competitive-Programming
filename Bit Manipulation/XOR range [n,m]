@@ -1,0 +1,20 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int xorToN(int n){
+    int calculatedXor;
+    int mod4 = n%4;
+    if(mod4 == 0) calculatedXor = n;
+    else if(mod4 == 1) calculatedXor = 1;
+    else if(mod4 == 2) calculatedXor = n+1;
+    else calculatedXor = 0;
+    return calculatedXor;
+}
+
+int main() {
+    int n, m;
+    cin>>n >> m;
+    cout<< (xorToN(n - 1) ^ xorToN(m)) <<endl;
+
+}
