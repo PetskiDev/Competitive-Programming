@@ -8,8 +8,10 @@ struct segmentTree{
     int n;
     vector<int> st;
     segmentTree(int n){
-        this->n = n;
-        st.resize(4*n, 0);
+        int x = (int)(ceil(log2(n)));
+        int max_size = 2*(int)pow(2, x) - 1;
+        this->n = max_size;
+        st.resize(max_size, 0);
     }
     void build(int startRange, int endRange, int currNode,  vector<int> const &v){
         if(startRange == endRange){
