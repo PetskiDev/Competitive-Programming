@@ -9,7 +9,7 @@ struct segmentTree{
     segmentTree(int n){
         int x = (int)(ceil(log2(n)));
         int max_size = 2*(int)pow(2, x) - 1;
-        this->n = max_size;
+        this->n = n;
         st.resize(max_size, INT_MAX);
     }
     void build(int startRange, int endRange, int currNode,  vector<int> const &v){
