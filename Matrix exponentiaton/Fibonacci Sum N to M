@@ -1,0 +1,97 @@
+#define int long long
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int modul = 1e9;
+
+struct Matrix
+{
+    vector<vector<int>> m;
+    int n;
+    Matrix(int n)
+    {
+        m.resize(n,vector<int>(n));
+        this->n = n;
+    }
+    void setIdentity()
+    {
+        for(int i = 0; i < n; i++)
+        {
+            m[i][i] = 1;
+        }
+    }
+
+    void  print()
+    {
+        cout<<endl;
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                cout<<m[i][j] << " ";
+            }
+            cout<<endl;
+        }
+        cout<<endl;
+    }
+    Matrix operator* (Matrix x)
+    {
+        Matrix res(n);
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                for(int k = 0; k<n; k++)
+                {
+                    res.m[i][j] += (m[i][k] * x.m[k][j]) % modul;
+                    res.m[i][j] %= modul;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+int fibsum(int n) {
+    if(n == -1) return 0;
+	if (n == 0) return 0;
+	if (n == 1) return 1;
+
+	Matrix res(3);
+	res.setIdentity();
+	Matrix T(3);
+	T.m[0][0] = T.m[0][1] = T.m[0][2] = 1;
+	T.m[1][1] = T.m[1][2] = 1;
+	T.m[2][1] = 1;
+
+	n -= 1;
+
+	while (n) {
+		if (n & 1) res = res * T;
+		T = T * T;
+		n /= 2;
+	}
+
+	return (res.m[0][0] + res.m[0][1]) % mod;
+}
+
+
+int32_t main()
+{
+
+	int t;
+	cin >> t;
+
+	while (t--) {
+		int n, m;
+		cin >> n >> m;
+		cout << (fibsum(m) - fibsum(n - 1) + modul) % modul << '\n';
+	}
+
+	return 0;
+
+}
