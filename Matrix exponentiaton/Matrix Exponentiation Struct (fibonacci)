@@ -1,0 +1,96 @@
+
+#define int long long
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int modul = mod;
+
+struct Matrix
+{
+    vector<vector<int>> m;
+    int n;
+    Matrix(int n)
+    {
+        m.resize(n,vector<int>(n));
+        this->n = n;
+    }
+    void setIdentity()
+    {
+        for(int i = 0; i < n; i++)
+        {
+            m[i][i] = 1;
+        }
+    }
+
+    void  print()
+    {
+        cout<<endl;
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                cout<<m[i][j] << " ";
+            }
+            cout<<endl;
+        }
+        cout<<endl;
+    }
+    Matrix operator* (Matrix x)
+    {
+        Matrix res(n);
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                for(int k = 0; k<n; k++)
+                {
+                    res.m[i][j] += (m[i][k] * x.m[k][j]) % modul;
+                    res.m[i][j] %= modul;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+
+
+int fib(int n)
+{
+
+    if(n<=2) return 1;
+    int b = n-2;
+
+    Matrix res(2);
+    res.setIdentity();
+
+    Matrix T(2);
+    T.m =  {{1,1},{1,0}};
+    while(b)
+    {
+        if(b&1)
+        {
+            res = res * T;
+        }
+        T = T*T;
+        b>>=1;
+    }
+    return (res.m[0][0] + res.m[0][1]) % modul;
+
+
+
+
+
+}
+
+int32_t main()
+{
+    long long a, m;
+    cin>>a>>m;
+    modul = m;
+    cout << fib(a);
+}
