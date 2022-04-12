@@ -1,0 +1,43 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define int long long
+
+using namespace std;
+
+vector<int> biggestPrimeFactor;
+
+void sieve(int n)
+{
+    biggestPrimeFactor.resize(n, 1);
+    biggestPrimeFactor[0] = 0;
+    biggestPrimeFactor[1] = 0;
+    for(int i = 2; i <= n; i++)
+    {
+        if(biggestPrimeFactor[i] == 1)
+        {
+            biggestPrimeFactor[i] = i;
+            for(int j = i*i; j<=n; j+=i)
+            {
+                if(biggestPrimeFactor[j] == 1){
+                    biggestPrimeFactor[j] = i;
+                }
+            }
+        }
+    }
+}
+
+int32_t main()
+{
+    sieve(10000000);
+    int q;
+    cin>>q;
+    while(q--){
+        int x;
+        cin>>x;
+        while(x!=1){
+            cout<<biggestPrimeFactor[x]<< " ";
+            x/=biggestPrimeFactor[x];
+        }
+        cout<<endl;
+    }
+}
