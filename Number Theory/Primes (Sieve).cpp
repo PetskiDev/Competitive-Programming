@@ -11,7 +11,7 @@ void SieveOfEratosthenes(int num)
     {
         if (prime[i])
         {
-            for (int j = i*2; j <= num; j += i)
+            for (int j = i*i; j <= num; j += i)
                 prime[j] = 0;
         }
     }
