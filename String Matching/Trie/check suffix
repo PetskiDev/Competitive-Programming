@@ -60,7 +60,6 @@ struct trie {
             }
             currPtr = currPtr->next[curr];
         }
-        currPtr->isWord = true;
     }
 
     bool isSuffix(string s) {
